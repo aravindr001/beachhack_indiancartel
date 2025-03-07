@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../Features/Auth/auth_bloc.dart';
-import '../Features/Auth/auth_event.dart';
-import '../Features/Auth/auth_state.dart';
+import '../bloc/auth_bloc.dart';
+import '../bloc/auth_event.dart';
+import '../bloc/auth_state.dart';
 import 'home_page.dart';
 import 'sign_up_page.dart';
 
@@ -17,18 +17,19 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  // final phoneController = TextEditingController();
 
   @override
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
+    // phoneController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     
       body: Stack(
         children: [
           Positioned.fill(
@@ -80,7 +81,9 @@ class _LoginPageState extends State<LoginPage> {
                             decoration: const InputDecoration(
                               labelText: 'Email',
                               border: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(8.0),
+                                ),
                               ),
                               fillColor: Color(0xFFF5F5F5),
                               filled: true,
@@ -92,13 +95,16 @@ class _LoginPageState extends State<LoginPage> {
                             decoration: const InputDecoration(
                               labelText: 'Password',
                               border: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(8.0),
+                                ),
                               ),
                               fillColor: Color(0xFFF5F5F5),
                               filled: true,
                             ),
                             obscureText: true,
                           ),
+
                           const SizedBox(height: 16.0),
                           BlocBuilder<AuthBloc, AuthState>(
                             builder: (context, state) {
@@ -107,47 +113,63 @@ class _LoginPageState extends State<LoginPage> {
                                   SizedBox(
                                     width: double.infinity,
                                     child: ElevatedButton(
-                                      onPressed: state is AuthLoading
-                                          ? null
-                                          : () {
-                                              final email = emailController.text.trim();
-                                              final password = passwordController.text;
-                                              
-                                              if (email.isEmpty || password.isEmpty) {
-                                                ScaffoldMessenger.of(context)
-                                                  ..hideCurrentSnackBar()
-                                                  ..showSnackBar(
-                                                    const SnackBar(
-                                                      content: Text('Please fill in all fields'),
-                                                      backgroundColor: Colors.orange,
-                                                    ),
-                                                  );
-                                                return;
-                                              }
-                                              
-                                              context.read<AuthBloc>().add(
-                                                LoginEvent(
-                                                  email: email,
-                                                  password: password,
-                                                ),
-                                              );
-                                            },
+                                      onPressed:
+                                          state is AuthLoading
+                                              ? null
+                                              : () {
+                                                final email =
+                                                    emailController.text.trim();
+                                                final password =
+                                                    passwordController.text;
+
+                                                if (email.isEmpty ||
+                                                    password.isEmpty) {
+                                                  ScaffoldMessenger.of(context)
+                                                    ..hideCurrentSnackBar()
+                                                    ..showSnackBar(
+                                                      const SnackBar(
+                                                        content: Text(
+                                                          'Please fill in all fields',
+                                                        ),
+                                                        backgroundColor:
+                                                            Colors.orange,
+                                                      ),
+                                                    );
+                                                  return;
+                                                }
+
+                                                context.read<AuthBloc>().add(
+                                                  LoginEvent(
+                                                    email: email,
+                                                    password: password,
+                                                  ),
+                                                );
+                                              },
                                       style: ElevatedButton.styleFrom(
-                                        backgroundColor: const Color.fromRGBO(255, 160, 88, 1),
+                                        backgroundColor: const Color.fromRGBO(
+                                          255,
+                                          160,
+                                          88,
+                                          1,
+                                        ),
                                         shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(8.0),
+                                          borderRadius: BorderRadius.circular(
+                                            8.0,
+                                          ),
                                         ),
                                       ),
-                                      child: state is AuthLoading
-                                          ? const SizedBox(
-                                              height: 20,
-                                              width: 20,
-                                              child: CircularProgressIndicator(
-                                                strokeWidth: 2,
-                                                color: Colors.white,
-                                              ),
-                                            )
-                                          : const Text('Login'),
+                                      child:
+                                          state is AuthLoading
+                                              ? const SizedBox(
+                                                height: 20,
+                                                width: 20,
+                                                child:
+                                                    CircularProgressIndicator(
+                                                      strokeWidth: 2,
+                                                      color: Colors.white,
+                                                    ),
+                                              )
+                                              : const Text('Login'),
                                     ),
                                   ),
                                   const SizedBox(height: 16.0),
@@ -155,7 +177,9 @@ class _LoginPageState extends State<LoginPage> {
                                     width: double.infinity,
                                     child: ElevatedButton.icon(
                                       onPressed: () {
-                                        context.read<AuthBloc>().add(GoogleSignInEvent());
+                                        context.read<AuthBloc>().add(
+                                          GoogleSignInEvent(),
+                                        );
                                       },
                                       icon: const FaIcon(
                                         FontAwesomeIcons.google,
@@ -165,9 +189,13 @@ class _LoginPageState extends State<LoginPage> {
                                       style: ElevatedButton.styleFrom(
                                         foregroundColor: Colors.black,
                                         backgroundColor: Colors.white,
-                                        side: const BorderSide(color: Colors.grey),
+                                        side: const BorderSide(
+                                          color: Colors.grey,
+                                        ),
                                         shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(8.0),
+                                          borderRadius: BorderRadius.circular(
+                                            8.0,
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -176,10 +204,15 @@ class _LoginPageState extends State<LoginPage> {
                                   TextButton(
                                     onPressed: () {
                                       Navigator.of(context).push(
-                                        MaterialPageRoute(builder: (context) => const SignUpPage()),
+                                        MaterialPageRoute(
+                                          builder:
+                                              (context) => const SignUpPage(),
+                                        ),
                                       );
                                     },
-                                    child: const Text('Don\'t have an account? Sign Up'),
+                                    child: const Text(
+                                      'Don\'t have an account? Sign Up',
+                                    ),
                                   ),
                                   const SizedBox(height: 16.0),
                                 ],
