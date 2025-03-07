@@ -7,8 +7,8 @@ A concise, engaging description of your hackathon project.
 [live link of project](live_link)
 
 ## 🛠 Tech Stack
-- List the primary technologies used
-- Include programming languages, frameworks, and key libraries
+- Flutter
+- Firebase
 
 ## 📦 Prerequisites
 - List all required software and versions
@@ -53,9 +53,9 @@ A concise, engaging description of your hackathon project.
    ```
 
 ## Team Members
-  [1.Aravind R](enter_github_id_here)   
-  [2.Arunraj V](enter_github_id_here)   
-  [3.Adithyan Valiyal Sreeni](enter_github_id_here)   
-  [4.Joel Koshy John](enter_github_id_here)  
+  [1.Aravind R](https://github.com/aravindr001)   
+  [2.Arunraj V](https://github.com/Arunrxj-v)   
+  [3.Adithyan Valiyal Sreeni](https://github.com/adithyan-sreeni)   
+  [4.Joel Koshy John](https://github.com/Joelkoshyjohn)  
 
 **Made with ❤️ at Beachhack 6**
