@@ -4,15 +4,15 @@ import 'package:kaam_hai/Features/employee/presentation/worker_profile_page_work
 import 'package:kaam_hai/Features/employee/presentation/worker_schemes_page.dart';
 import 'package:kaam_hai/widgets/navbar2.dart';
 
-class PagesRouter extends StatefulWidget {
-  const PagesRouter({super.key});
+class WorkerPagesRouter extends StatefulWidget {
+  const WorkerPagesRouter({super.key});
 
   @override
   // ignore: library_private_types_in_public_api
-  PagesRouterState createState() => PagesRouterState();
+  WorkerPagesRouterState createState() => WorkerPagesRouterState();
 }
 
-class PagesRouterState extends State<PagesRouter> {
+class WorkerPagesRouterState extends State<WorkerPagesRouter> {
   int _selectedIndex = 0; // Track the selected tab
 
   // List of pages corresponding to each tab

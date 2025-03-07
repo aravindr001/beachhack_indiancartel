@@ -2,20 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:kaam_hai/Features/Auth/presentation/sign_up_page.dart';
+import 'package:kaam_hai/Features/Auth/presentation/category_selector.dart';
+import 'package:kaam_hai/Features/employee/presentation/worker_pages_router.dart';
+import 'package:kaam_hai/firebase_options.dart';
 import 'Features/Auth/bloc/auth_bloc.dart';
-import 'config/firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   try {
-    print('Attempting Firebase initialization...');
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
-    print('Firebase initialized successfully');
   } catch (e) {
-    print('Firebase initialization error: $e');
+    print('fucked: $e');
   }
   runApp(const MyApp());
 }
@@ -69,7 +68,7 @@ class MyApp extends StatelessWidget {
             textTheme: ButtonTextTheme.primary,
           ),
         ),
-        home: const SignUpPage(),
+        home: SelectRolePage(),
       ),
     );
   }

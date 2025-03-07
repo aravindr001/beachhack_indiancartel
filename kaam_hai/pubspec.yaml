@@ -50,6 +50,7 @@ dependencies:
   youtube_player_flutter: ^9.0.0 # Use the latest version
   youtube_player_iframe: ^4.0.4
   font_awesome_flutter: ^10.8.0
+  fluttertoast: ^8.2.12
 
 dev_dependencies:
   flutter_test:
