@@ -2,11 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:kaam_hai/employee_pages_router.dart';
-import 'package:kaam_hai/screens/home_page.dart';
 import 'package:kaam_hai/screens/sign_up_page.dart';
 import 'Features/Auth/auth_bloc.dart';
-import 'screens/login_page.dart';
 import 'Features/config/firebase_options.dart';
 
 void main() async {
