@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:kaam_hai/Features/Auth/presentation/category_selector.dart';
+import 'package:kaam_hai/Features/Auth/presentation/login_page.dart';
+import 'package:kaam_hai/Features/Auth/presentation/sign_up_page.dart';
 import 'package:kaam_hai/Features/employee/presentation/worker_pages_router.dart';
 import 'package:kaam_hai/firebase_options.dart';
 import 'Features/Auth/bloc/auth_bloc.dart';
@@ -68,7 +70,8 @@ class MyApp extends StatelessWidget {
             textTheme: ButtonTextTheme.primary,
           ),
         ),
-        home: SelectRolePage(),
+        // home: LoginPage(phoneNumber: "8687696", verificationId: "123456"),
+        home: const SignUpPage(),
       ),
     );
   }

@@ -1,145 +1,183 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import '../bloc/auth_bloc.dart';
-import '../bloc/auth_event.dart';
-import '../bloc/auth_state.dart';
-import '../../employee/presentation/worker_home_page.dart';
+import 'package:flutter/services.dart';
+import 'package:kaam_hai/Features/employee/presentation/worker_home_page.dart';
 
-class SignUpPage extends StatelessWidget {
+class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final emailController = TextEditingController();
-    final passwordController = TextEditingController();
-    final confirmPasswordController = TextEditingController();
+  State<SignUpPage> createState() => _SignUpPageState();
+}
 
+class _SignUpPageState extends State<SignUpPage> {
+  final phoneController = TextEditingController();
+  final otpController = TextEditingController();
+  bool showOTP = false;
+  bool isLoading = false;
+  String verificationId = '';
+
+  void navigateToHomePage() {
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (context) => const HomePage()),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Positioned.fill(
-            child: Container(
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/background_image.jpg'),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-          ),
-          Scaffold(
-            backgroundColor: Colors.transparent,
-            body: Center(
-              child: Card(
-                color: Colors.white, // White background for the card
-                elevation: 8.0,
-                margin: const EdgeInsets.all(16.0),
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
+      backgroundColor: const Color(0xFF6200EE),
+      body: Center(
+        child: Card(
+          color: Colors.white,
+          elevation: 8.0,
+          margin: const EdgeInsets.all(16.0),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                AnimatedCrossFade(
+                  duration: const Duration(milliseconds: 300),
+                  crossFadeState:
+                      !showOTP
+                          ? CrossFadeState.showFirst
+                          : CrossFadeState.showSecond,
+                  firstChild: Column(
+                    children: [
                       TextField(
-                        controller: emailController,
+                        controller: phoneController,
+                        keyboardType: TextInputType.phone,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                          LengthLimitingTextInputFormatter(10),
+                        ],
                         decoration: const InputDecoration(
-                          labelText: 'Email',
+                          labelText: 'Phone Number',
+                          prefixText: '+91 ',
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(8.0),
+                            ),
                           ),
-                          fillColor: Color(0xFFF5F5F5), // Dull white background
+                          fillColor: Color(0xFFF5F5F5),
                           filled: true,
                         ),
-                      ),
-                      const SizedBox(height: 16.0),
-                      TextField(
-                        controller: passwordController,
-                        decoration: const InputDecoration(
-                          labelText: 'Password',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                          ),
-                          fillColor: Color(0xFFF5F5F5), // Dull white background
-                          filled: true,
-                        ),
-                        obscureText: true,
-                      ),
-                      const SizedBox(height: 16.0),
-                      TextField(
-                        controller: confirmPasswordController,
-                        decoration: const InputDecoration(
-                          labelText: 'Confirm Password',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                          ),
-                          fillColor: Color(0xFFF5F5F5), // Dull white background
-                          filled: true,
-                        ),
-                        obscureText: true,
                       ),
                       const SizedBox(height: 16.0),
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
-                          onPressed: () {
-                            final email = emailController.text;
-                            final password = passwordController.text;
-                            final confirmPassword = confirmPasswordController.text;
-
-                            if (password == confirmPassword) {
-                              context.read<AuthBloc>().add(SignUpEvent(email, password));
-                            } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text('Passwords do not match')),
-                              );
-                            }
-                          },
+                          onPressed:
+                              isLoading
+                                  ? null
+                                  : () {
+                                    if (phoneController.text.length == 10) {
+                                      setState(() {
+                                        showOTP = true;
+                                      });
+                                    } else {
+                                      ScaffoldMessenger.of(
+                                        context,
+                                      ).showSnackBar(
+                                        const SnackBar(
+                                          content: Text(
+                                            'Please enter a valid 10-digit phone number',
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                  },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color.fromRGBO(255, 160, 88, 1), // Match background image color
+                            backgroundColor: const Color(0xFF6200EE),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8.0),
                             ),
                           ),
-                          child: const Text('Sign Up'),
+                          child:
+                              isLoading
+                                  ? const SizedBox(
+                                    height: 20,
+                                    width: 20,
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 2,
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                        Colors.white,
+                                      ),
+                                    ),
+                                  )
+                                  : const Text(
+                                    'Send OTP',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  secondChild: Column(
+                    children: [
+                      TextField(
+                        controller: otpController,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                          LengthLimitingTextInputFormatter(6),
+                        ],
+                        decoration: const InputDecoration(
+                          labelText: 'OTP',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(8.0),
+                            ),
+                          ),
+                          fillColor: Color(0xFFF5F5F5),
+                          filled: true,
                         ),
                       ),
                       const SizedBox(height: 16.0),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop(); // This will go back to the login page
-                        },
-                        child: const Text('Already have an account? Login'),
-                      ),
-                      const SizedBox(height: 16.0),
-                      BlocListener<AuthBloc, AuthState>(
-                        listener: (context, state) {
-                          if (state is AuthSuccess) {  // Changed from Authenticated to AuthSuccess
-                            Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(builder: (context) => const HomePage()),
-                            );
-                          } else if (state is AuthError) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text(state.message)),
-                            );
-                          }
-                        },
-                        child: BlocBuilder<AuthBloc, AuthState>(
-                          builder: (context, state) {
-                            if (state is AuthLoading) {
-                              return const CircularProgressIndicator();
-                            } else {
-                              return Container();
-                            }
-                          },
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed:
+                              isLoading
+                                  ? null
+                                  : () {
+                                    navigateToHomePage();
+                                  },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF6200EE),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                          ),
+                          child:
+                              isLoading
+                                  ? const SizedBox(
+                                    height: 20,
+                                    width: 20,
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 2,
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                        Colors.white,
+                                      ),
+                                    ),
+                                  )
+                                  : const Text(
+                                    'Verify OTP',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
                         ),
                       ),
                     ],
                   ),
                 ),
-              ),
+                const SizedBox(height: 16.0),
+                // Placeholder for BlocListener and BlocBuilder
+                // Remove or replace with actual logic if needed
+                Container(),
+              ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }
