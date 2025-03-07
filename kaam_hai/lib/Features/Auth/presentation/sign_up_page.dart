@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:kaam_hai/Features/Auth/presentation/category_selector.dart';
 import 'package:kaam_hai/Features/employee/presentation/worker_home_page.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -18,7 +19,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   void navigateToHomePage() {
     Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => const HomePage()),
+      MaterialPageRoute(builder: (context) => const SelectRolePage()),
     );
   }
 
