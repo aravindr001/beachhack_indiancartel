@@ -1,7 +1,7 @@
-# Project Name
+# Kaam_hai
 
 ## 🚀 Project Description
-A concise, engaging description of your hackathon project.
+This project focuses on giving jobs to poeple in need.
 
 ## 🎯 Link to Project
 [live link of project](live_link)
