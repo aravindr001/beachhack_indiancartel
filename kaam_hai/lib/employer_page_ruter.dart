@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kaam_hai/screens/home_page.dart';
-import 'package:kaam_hai/screens/schemespage.dart';
+import 'package:kaam_hai/Features/employee/presentation/worker_home_page.dart';
+import 'package:kaam_hai/Features/employee/presentation/worker_schemes_page.dart';
 import 'package:kaam_hai/widgets/navbar2.dart';
 
 class PagesRouter extends StatefulWidget {
