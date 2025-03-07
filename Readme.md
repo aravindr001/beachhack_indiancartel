@@ -53,9 +53,9 @@ A concise, engaging description of your hackathon project.
    ```
 
 ## Team Members
-  [1.Team Member 1](enter_github_id_here)   
-  [2.Team Member 2](enter_github_id_here)   
-  [3.Team Member 3](enter_github_id_here)   
-  [4.Team Member 4](enter_github_id_here)  
+  [1.Aravind R](enter_github_id_here)   
+  [2.Arunraj V](enter_github_id_here)   
+  [3.Adithyan Valiyal Sreeni](enter_github_id_here)   
+  [4.Joel Koshy John](enter_github_id_here)  
 
 **Made with ❤️ at Beachhack 6**
