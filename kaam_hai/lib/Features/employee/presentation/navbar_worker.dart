@@ -14,6 +14,7 @@ class CustomWhatsAppNavBarWorker extends StatelessWidget {
   final List<Map<String, dynamic>> _tabs = [
     {'icon': Icons.home, 'label': 'Home'},
     {'icon': Icons.receipt_long, 'label': 'Schemes'},
+    {'icon': Icons.share, 'label': 'Refer'},
     {'icon': Icons.person, 'label': 'Profile'},
   ];
 
