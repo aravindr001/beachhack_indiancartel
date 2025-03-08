@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kaam_hai/Features/employee/presentation/navbar_worker.dart';
+import 'package:kaam_hai/Features/employee/presentation/referpage.dart';
 import 'package:kaam_hai/Features/employee/presentation/worker_home_page.dart';
 import 'package:kaam_hai/Features/employee/presentation/worker_profile_page_worker.dart';
 import 'package:kaam_hai/Features/employee/presentation/worker_schemes_page.dart';
@@ -19,6 +20,7 @@ class WorkerPagesRouterState extends State<WorkerPagesRouter> {
   final List<Widget> _pages = [
     WorkerHomeScreen(),
     SchemesPage(),
+    ReferAndEarnScreen(),
     ProfilePage(),
     // const Calls(),
   ];

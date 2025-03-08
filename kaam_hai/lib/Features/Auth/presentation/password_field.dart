@@ -1,31 +1,39 @@
 import 'package:flutter/material.dart';
 
-class MyTextField extends StatelessWidget {
+class PasswordField extends StatefulWidget {
   final controller;
   final String hintText;
-  final bool obscureText;
   // final GlobalKey<FormState> formKey;
-  // final String? validationType;
 
-  const MyTextField({
+  const PasswordField({
     super.key,
     required this.controller,
     required this.hintText,
-    required this.obscureText,
     // required this.formKey,
-    // required this.validationType,
   });
-  // final _formKey = GlobalKey<FormState>();
+
+  @override
+  State<PasswordField> createState() => _PasswordFieldState();
+}
+
+class _PasswordFieldState extends State<PasswordField> {
+  bool obscureText = true;
+
+  void inverter() {
+    setState(() {
+      obscureText = !obscureText;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Form(
-      // key: formKey,
+      // key: widget.formKey,
       child: TextFormField(
-        controller: controller,
-        // validator: (value) => TValidator.validateEmail(value),
+        controller: widget.controller,
+        // validator: (value) => TValidator.validatePassword(value),
         // (value) {
-        //   return (TValidator.validateEmail(value));
+        //   return (TValidator.validatePassword(value));
         // },
         obscureText: obscureText,
         decoration: InputDecoration(
@@ -39,8 +47,12 @@ class MyTextField extends StatelessWidget {
           ),
           fillColor: Colors.grey.shade200,
           filled: true,
-          hintText: hintText,
+          hintText: widget.hintText,
           hintStyle: TextStyle(color: Colors.grey[500]),
+          suffixIcon: IconButton(
+            icon: Icon(obscureText ? Icons.visibility : Icons.visibility_off),
+            onPressed: inverter,
+          ),
         ),
       ),
     );

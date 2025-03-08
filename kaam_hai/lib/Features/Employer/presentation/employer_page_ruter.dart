@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:kaam_hai/Features/Employer/presentation/emp_history.dart';
 import 'package:kaam_hai/Features/Employer/presentation/employer_home_page.dart';
 import 'package:kaam_hai/Features/Employer/presentation/employer_profile_page_worker.dart';
 import 'package:kaam_hai/Features/Employer/presentation/navbar_employer.dart';
-import 'package:kaam_hai/Features/employee/presentation/worker_schemes_page.dart';
 
 class PagesRouter extends StatefulWidget {
   const PagesRouter({super.key});
@@ -18,7 +18,7 @@ class PagesRouterState extends State<PagesRouter> {
   // List of pages corresponding to each tab
   final List<Widget> _pages = [
     EmployerHome(),
-    SchemesPage(),
+    HistoryPage(),
     EmpProfilePage(),
     // // const Communities(),
     // const Calls(),
