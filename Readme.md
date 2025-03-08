@@ -1,24 +1,19 @@
 # Kaam_hai
 
 ## 🚀 Project Description
-This project focuses on giving jobs to poeple in need.
+This project focuses on giving jobs to poeple in need. The people who has no knowledge of smartphone can get a job through sms. And escape from hunger.
 
 ## 🎯 Link to Project
-[live link of project](live_link)
+[live link of project](https://drive.google.com/drive/folders/11RYkBnZIORrq5wuF9A8BKaNI5fNWSUXx?usp=share_link)
 
 ## 🛠 Tech Stack
 - Flutter
 - Firebase
+- Twilio
+- nodeJS
 
-## 📦 Prerequisites
-- List all required software and versions
-- Include installation instructions
-- Example:
-  ```
-  - Node.js (v14+)
-  - npm (v6+)
-  - Python (v3.8+)
-  ```
+
+
 
 ## 🔧 Installation & Setup
 
@@ -33,18 +28,9 @@ This project focuses on giving jobs to poeple in need.
    pip install -r requirements.txt
    ```
 
-2. Configure Environment Variables
-   
-   - Create a `.env` file
-   - Add necessary configuration details
-     
-   ```
-   API_KEY=your_api_key
-   DATABASE_URL=your_database_connection_string
-   ```
 
 4. Run the Application
-   ```bash
+   ```flutter
    # Start frontend
    npm start
 
