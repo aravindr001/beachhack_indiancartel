@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kaam_hai/Features/Employer/presentation/employer_home_page.dart';
+import 'package:kaam_hai/Features/Employer/presentation/employer_profile_page_worker.dart';
 import 'package:kaam_hai/Features/Employer/presentation/navbar_employer.dart';
 import 'package:kaam_hai/Features/employee/presentation/worker_schemes_page.dart';
 
@@ -18,6 +19,7 @@ class PagesRouterState extends State<PagesRouter> {
   final List<Widget> _pages = [
     EmployerHome(),
     SchemesPage(),
+    EmpProfilePage(),
     // // const Communities(),
     // const Calls(),
   ];

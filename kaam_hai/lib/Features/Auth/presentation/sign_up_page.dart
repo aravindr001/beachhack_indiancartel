@@ -184,91 +184,91 @@
 //   }
 // }
 
-import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:kaam_hai/Features/Auth/Services/auth_service.dart';
+  import 'package:flutter/material.dart';
+  import 'package:firebase_auth/firebase_auth.dart';
+  import 'package:fluttertoast/fluttertoast.dart';
+  import 'package:kaam_hai/Features/Auth/Services/auth_service.dart';
 
-class SignUpPage extends StatefulWidget {
-  @override
-  _SignUpPageState createState() => _SignUpPageState();
-}
-
-class _SignUpPageState extends State<SignUpPage> {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  bool isLoading = false;
-
-  void showToast(String message) {
-    Fluttertoast.showToast(
-      msg: message,
-      gravity: ToastGravity.BOTTOM,
-      backgroundColor: Colors.red,
-      textColor: Colors.white,
-    );
+  class SignUpPage extends StatefulWidget {
+    @override
+    _SignUpPageState createState() => _SignUpPageState();
   }
 
-  void signUp() async {
-    String email = emailController.text.trim();
-    String password = passwordController.text.trim();
+  class _SignUpPageState extends State<SignUpPage> {
+    final TextEditingController emailController = TextEditingController();
+    final TextEditingController passwordController = TextEditingController();
+    bool isLoading = false;
 
-    if (email.isEmpty || password.isEmpty) {
-      showToast("Email and Password cannot be empty");
-      return;
+    void showToast(String message) {
+      Fluttertoast.showToast(
+        msg: message,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+      );
     }
-    if (password.length < 6) {
-      showToast("Password must be at least 6 characters");
-      return;
-    }
 
-    setState(() => isLoading = true);
+    void signUp() async {
+      String email = emailController.text.trim();
+      String password = passwordController.text.trim();
 
-    try {
-      User? user = await AuthService().signUp(email, password);
-      if (user != null) {
-        Fluttertoast.showToast(
-          msg: "Sign up successful!",
-          backgroundColor: Colors.green,
-        );
-        Navigator.pushReplacementNamed(context, '/home');
-      } else {
-        showToast("Sign up failed. Try again.");
+      if (email.isEmpty || password.isEmpty) {
+        showToast("Email and Password cannot be empty");
+        return;
       }
-    } on FirebaseAuthException catch (e) {
-      showToast(e.message ?? "Sign up error");
-    } finally {
-      setState(() => isLoading = false);
+      if (password.length < 6) {
+        showToast("Password must be at least 6 characters");
+        return;
+      }
+
+      setState(() => isLoading = true);
+
+      try {
+        User? user = await AuthService().signUp(email, password);
+        if (user != null) {
+          Fluttertoast.showToast(
+            msg: "Sign up successful!",
+            backgroundColor: Colors.green,
+          );
+          Navigator.pushReplacementNamed(context, '/home');
+        } else {
+          showToast("Sign up failed. Try again.");
+        }
+      } on FirebaseAuthException catch (e) {
+        showToast(e.message ?? "Sign up error");
+      } finally {
+        setState(() => isLoading = false);
+      }
+    }
+
+    @override
+    Widget build(BuildContext context) {
+      return Scaffold(
+        appBar: AppBar(title: Text("Sign Up")),
+        body: Padding(
+          padding: EdgeInsets.all(16),
+          child: Column(
+            children: [
+              TextField(
+                controller: emailController,
+                decoration: InputDecoration(labelText: "Email"),
+              ),
+              TextField(
+                controller: passwordController,
+                decoration: InputDecoration(labelText: "Password"),
+                obscureText: true,
+              ),
+              SizedBox(height: 20),
+              isLoading
+                  ? CircularProgressIndicator()
+                  : ElevatedButton(onPressed: signUp, child: Text("Sign Up")),
+              TextButton(
+                onPressed: () => Navigator.pushNamed(context, '/login'),
+                child: Text("Already have an account? Log In"),
+              ),
+            ],
+          ),
+        ),
+      );
     }
   }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("Sign Up")),
-      body: Padding(
-        padding: EdgeInsets.all(16),
-        child: Column(
-          children: [
-            TextField(
-              controller: emailController,
-              decoration: InputDecoration(labelText: "Email"),
-            ),
-            TextField(
-              controller: passwordController,
-              decoration: InputDecoration(labelText: "Password"),
-              obscureText: true,
-            ),
-            SizedBox(height: 20),
-            isLoading
-                ? CircularProgressIndicator()
-                : ElevatedButton(onPressed: signUp, child: Text("Sign Up")),
-            TextButton(
-              onPressed: () => Navigator.pushNamed(context, '/login'),
-              child: Text("Already have an account? Log In"),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
