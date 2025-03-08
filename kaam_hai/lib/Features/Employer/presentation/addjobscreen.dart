@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:http/http.dart' as http;
 
 class AddJobScreen extends StatefulWidget {
   const AddJobScreen({super.key});
@@ -41,14 +44,18 @@ class _AddJobScreenState extends State<AddJobScreen> {
   final Color _borderColor = const Color(0xFFD1D1D6);
 
   Future<void> _submitJob() async {
-    if (_formKey.currentState!.validate()) {
-      try {
-        final workType =
-            _selectedWorkType == 'Other'
-                ? _otherWorkTypeController.text
-                : _selectedWorkType;
+  if (_formKey.currentState!.validate()) {
+    try {
+      final workType = _selectedWorkType == 'Other'
+          ? _otherWorkTypeController.text
+          : _selectedWorkType;
 
-        await FirebaseFirestore.instance.collection('jobs').add({
+      final response = await http.post(
+        Uri.parse('https://sms-new.onrender.com/addJob'), // Replace with your server URL
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, String>{
           'jobName': _jobNameController.text,
           'phone': _phoneController.text,
           'address': _addressController.text,
@@ -56,21 +63,26 @@ class _AddJobScreenState extends State<AddJobScreen> {
           'wage': _wageController.text,
           'workType': workType,
           'description': _descriptionController.text,
-          'date': _selectedDate,
-          'timestamp': FieldValue.serverTimestamp(),
-        });
-
+        }),
+      );
+      print('database updated');
+      if (response.statusCode == 200) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Job posted successfully!')),
         );
         Navigator.pop(context);
-      } catch (e) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text('Error posting job: $e')));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error posting job: ${response.reasonPhrase}')),
+        );
       }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error posting job: $e')),
+      );
     }
   }
+}
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
