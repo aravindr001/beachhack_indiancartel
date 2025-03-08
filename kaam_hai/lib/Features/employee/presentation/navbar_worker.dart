@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class CustomWhatsAppNavBar extends StatelessWidget {
+class CustomWhatsAppNavBarWorker extends StatelessWidget {
   final int selectedIndex;
   final Function(int) onItemTapped;
 
-  CustomWhatsAppNavBar({
+  CustomWhatsAppNavBarWorker({
     super.key,
     required this.selectedIndex,
     required this.onItemTapped,

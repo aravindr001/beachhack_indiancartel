@@ -71,7 +71,39 @@ class MyApp extends StatelessWidget {
           ),
         ),
         // home: LoginPage(phoneNumber: "8687696", verificationId: "123456"),
-        home: const SignUpPage(),
+        home: AuthWrapper(),
+      ),
+    );
+  }
+}
+
+// This widget decides which page to show based on authentication status
+class AuthWrapper extends StatefulWidget {
+  const AuthWrapper({super.key});
+
+  @override
+  State<AuthWrapper> createState() => _AuthWrapperState();
+}
+
+class _AuthWrapperState extends State<AuthWrapper> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 450),
+          child: StreamBuilder<User?>(
+            stream: FirebaseAuth.instance.authStateChanges(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return const SelectRolePage();
+              } else {
+                return SignUpPage();
+              }
+            },
+          ),
+        ),
       ),
     );
   }

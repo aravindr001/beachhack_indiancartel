@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:kaam_hai/Features/Auth/Services/auth_service.dart';
+import 'package:kaam_hai/Features/employee/presentation/worker_pages_router.dart';
+import 'package:kaam_hai/Features/Employer/presentation/employer_page_ruter.dart';
 
 class SelectRolePage extends StatelessWidget {
   const SelectRolePage({super.key});
@@ -18,7 +21,8 @@ class SelectRolePage extends StatelessWidget {
               title: 'Employer',
               description: 'Hire workers for your needs',
               onTap: () {
-                Navigator.pushNamed(context, '/employer');
+                // Navigator.pushNamed(context, '/employer');
+                navigateToEmployerRouterWidget(context);
               },
             ),
             const SizedBox(height: 20),
@@ -28,8 +32,18 @@ class SelectRolePage extends StatelessWidget {
               title: 'Employee',
               description: 'Find jobs that match your skills',
               onTap: () {
-                Navigator.pushNamed(context, '/employee');
+                navigateToWorkerRouterWidget(context);
+                // Navigator.pushNamed(context, '/employee');
               },
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                AuthService().logOut();
+                // Add your logout logic here
+                // Navigator.pushNamed(context, '/logout');
+              },
+              child: const Text('Logout'),
             ),
           ],
         ),
@@ -89,6 +103,7 @@ class RoleSelectionCard extends StatelessWidget {
                   style: const TextStyle(fontSize: 16, color: Colors.grey),
                   textAlign: TextAlign.center,
                 ),
+                const SizedBox(height: 20),
               ],
             ),
           ),
@@ -96,4 +111,18 @@ class RoleSelectionCard extends StatelessWidget {
       ),
     );
   }
+}
+
+void navigateToWorkerRouterWidget(BuildContext context) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => WorkerPagesRouter()),
+  );
+}
+
+void navigateToEmployerRouterWidget(BuildContext context) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => PagesRouter()),
+  );
 }

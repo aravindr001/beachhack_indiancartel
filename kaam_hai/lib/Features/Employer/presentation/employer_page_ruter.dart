@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kaam_hai/Features/employee/presentation/worker_home_page.dart';
+import 'package:kaam_hai/Features/Employer/presentation/employer_home_page.dart';
+import 'package:kaam_hai/Features/Employer/presentation/navbar_employer.dart';
 import 'package:kaam_hai/Features/employee/presentation/worker_schemes_page.dart';
-import 'package:kaam_hai/widgets/navbar2.dart';
 
 class PagesRouter extends StatefulWidget {
   const PagesRouter({super.key});
@@ -16,7 +16,7 @@ class PagesRouterState extends State<PagesRouter> {
 
   // List of pages corresponding to each tab
   final List<Widget> _pages = [
-    const HomePage(),
+    EmployerHome(),
     SchemesPage(),
     // // const Communities(),
     // const Calls(),
@@ -33,7 +33,7 @@ class PagesRouterState extends State<PagesRouter> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: IndexedStack(index: _selectedIndex, children: _pages),
-      bottomNavigationBar: CustomWhatsAppNavBar(
+      bottomNavigationBar: CustomWhatsAppNavBarEmployer(
         selectedIndex: _selectedIndex,
         onItemTapped: _onItemTapped,
       ),
